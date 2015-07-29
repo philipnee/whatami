@@ -6,7 +6,7 @@ from numpy import array
 # returns: gt (geometry transform), ct (coordinate transform)
 def open_and_transform(geotif_fname):
     # Load the image dataset
-    ds = gdal.Open(geotifAddr)
+    ds = gdal.Open(geotif_fname)
     # Get a geo-transform of the dataset
     gt = ds.GetGeoTransform()
     # Create a spatial reference object for the dataset
