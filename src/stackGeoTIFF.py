@@ -32,7 +32,7 @@ class stackGeoTIFF:
 
     #x_y_pairs is a n x 2 array
     def get_pixel_stacks(self, x_y_pairs):
-        num_pairs = x_y_pairs.shape[0]
+        num_pairs = len(x_y_pairs)
         pixel_stack = np.zeros((7, num_pairs))
         iterator = 0
         for x_y in x_y_pairs:
@@ -54,7 +54,7 @@ class stackGeoTIFF:
     def open_band(self, image_name):
         print("printing "+image_name)
         image = gdal.Open(image_name)
-        image_array = np.array(image.GetRasterBand(1).ReadAsArray())
+        image_array = image.GetRasterBand(1).ReadAsArray()
         return image_array
 
     def find_band(self, band_num):
