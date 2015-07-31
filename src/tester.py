@@ -7,6 +7,8 @@ import geotiff_handler as gh
 from osgeo import gdal
 import numpy as np
 from stackGeoTIFF import stackGeoTIFF
+from calc_NDVI import CalcNDVI
+from parse_metadata import ParseMetaData
 
 def construct_directory_path(path, row):
     directory_path = "../data/"+str(path)+"/"+str(row)+"/"
@@ -42,6 +44,17 @@ for path in image_map.keys():
         band_file = get_band_filename(directory_path)
         xy_pairs = get_xy_from_latlng(latlng_pairs, directory_path+band_file)
         xy_pairs_bands = get_bands(xy_pairs, directory_path)
-        print xy_pairs
+        print band_file
         print xy_pairs_bands
-        
+        metadata = ParseMetaData(band_file.split('_')[0], directory_path)
+        metadata.get_meta_filename()
+        metadata.process_metadata()
+        m_b4 = metadata.get_radiance_mult_band_4()
+        m_b5 = metadata.get_radiance_mult_band_5()
+        a_b4 = metadata.get_radiance_add_band_4()
+        a_b5 = metadata.get_radiance_add_band_5()
+        ndvi = CalcNDVI(m_b4, m_b5, a_b4, a_b5)
+        band4And5Pairs = map(lambda allBands : [allBands[3], allBands[4]],
+                             xy_pairs_bands)
+        print band4And5Pairs
+        print ndvi.computeNDVIList(band4And5Pairs)

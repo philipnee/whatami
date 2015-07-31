@@ -33,17 +33,9 @@ class stackGeoTIFF:
     #x_y_pairs is a n x 2 array
     def get_pixel_stacks(self, x_y_pairs):
         num_pairs = len(x_y_pairs)
-        pixel_stack = np.zeros((7, num_pairs))
-        iterator = 0
+        pixel_stack = []
         for x_y in x_y_pairs:
-            pixel_stack[0][iterator] = self.band1[x_y[1]][x_y[0]]
-            pixel_stack[1][iterator] = self.band2[x_y[1]][x_y[0]]
-            pixel_stack[2][iterator] = self.band3[x_y[1]][x_y[0]]
-            pixel_stack[3][iterator] = self.band4[x_y[1]][x_y[0]]
-            pixel_stack[4][iterator] = self.band5[x_y[1]][x_y[0]]
-            pixel_stack[5][iterator] = self.band6[x_y[1]][x_y[0]]
-            pixel_stack[6][iterator] = self.band7[x_y[1]][x_y[0]]
-            iterator = iterator+1
+            pixel_stack.append(self.get_pixel_stack(x_y[1], x_y[0]))
         return pixel_stack
              
     def load_band(self, band_num):
