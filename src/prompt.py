@@ -37,7 +37,7 @@ def classify_results(ndvi):
         return "Land, probably soil, road, concrete"
     elif ndvi <0.05 and ndvi >=-0.2:
         return "Westland, swamp"
-    elif ndvi < -0.3:
+    elif ndvi < -0.2:
         return "Water Body"
     else:
         return "Unsure"
