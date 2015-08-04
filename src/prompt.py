@@ -30,18 +30,6 @@ def get_bands(xy_pairs, directory_path):
     k.load_bands()
     return k.get_pixel_stacks(xy_pairs)
 
-def classify_results(ndvi):
-    if ndvi >= 0.2:
-        return "Vegetated Area"
-    elif ndvi >=-0.05 and ndvi < 0.2:
-        return "Land, probably soil, road, concrete"
-    elif ndvi <0.05 and ndvi >=-0.2:
-        return "Westland, swamp"
-    elif ndvi < -0.2:
-        return "Water Body"
-    else:
-        return "Unsure"
-
 def get_ndvi(latlng_pair):
     latlng = []
     latlng.append(list(latlng_pair))
